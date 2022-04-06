@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { createContext, useContext, useState } from "react";
+import Login from "./Components/Login"
+import Navigation from "./Components/Navigation";
+import Users from "./Components/Users";
+
+export const centralState = createContext();
 
 function App() {
+  const cState = useContext(centralState);
+
+  //central state
+  const [store, setStore] = useState({
+    IsLoggedIn: false,
+    users: []
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <centralState.Provider value={{store,setStore}}>
+      <Navigation />
+    </centralState.Provider>
   );
 }
 
